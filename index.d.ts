@@ -1,5 +1,6 @@
 /// <reference types="node" />
 
+import * as child_process from "child_process";
 import * as events from "events";
 import * as stream from "stream";
 
@@ -407,12 +408,12 @@ declare namespace Ffmpeg {
       callback: (err: any, data: FfprobeData) => void
     ): void;
     ffprobe(
-      options: string[],
+      options: { options: string[]; json?: boolean },
       callback: (err: any, data: FfprobeData) => void
     ): void; // tslint:disable-line unified-signatures
     ffprobe(
       index: number,
-      options: string[],
+      options: { options: string[]; json?: boolean },
       callback: (err: any, data: FfprobeData) => void
     ): void;
 
@@ -567,6 +568,7 @@ declare namespace Ffmpeg {
     ): FfmpegCommand;
     clone(): FfmpegCommand;
     run(): void;
+    ffmpegProc: child_process.ChildProcessByStdio;
   }
 
   function ffprobe(
@@ -580,13 +582,13 @@ declare namespace Ffmpeg {
   ): void;
   function ffprobe(
     file: string,
-    options: string[],
+    options: { options: string[]; json?: boolean },
     callback: (err: any, data: FfprobeData) => void
   ): void; // tslint:disable-line unified-signatures
   function ffprobe(
     file: string,
     index: number,
-    options: string[],
+    options: { options: string[]; json?: boolean },
     callback: (err: any, data: FfprobeData) => void
   ): void;
 }
